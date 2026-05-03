@@ -27,9 +27,9 @@ It focuses on extracting meaningful insights from sales, customer, and inventory
 ### Tables:
 
 * **Books** (`book_id`, `title`, `genre`, `price`, `stock`)
-* **Customers** (`customer_id`, `name`, `city`,'signup_date')
-* **Orders** (`order_id`, `customer_id`,'book_id','quantity', `order_date`)
-* **Marketingspend** (`spend_id`, `customer_id`, `spend_amount`)
+* **Customers** (`customer_id`, `name`, `city`, `signup_date`)
+* **Orders** (`order_id`, `customer_id`, `book_id`, `quantity`, `order_date`)
+* **MarketingSpend** (`spend_id`, `customer_id`, `spend_amount`)
 
 ---
 
@@ -37,8 +37,9 @@ It focuses on extracting meaningful insights from sales, customer, and inventory
 
 * 📈 Sales analysis (daily, monthly revenue)
 * 📚 Identification of top-selling books
-* 👤 Customer purchase tracking
+* 👤 Customer behavior analysis
 * 📦 Inventory monitoring (stock levels)
+* 💰 Marketing spend vs customer purchase insights
 * 🔍 Advanced SQL queries using:
 
   * JOIN operations
@@ -53,17 +54,17 @@ It focuses on extracting meaningful insights from sales, customer, and inventory
 ### 🔹 Total Revenue
 
 ```sql
-SELECT SUM(b.price * oi.quantity) AS total_revenue
-FROM order_items oi
-JOIN books b ON oi.book_id = b.book_id;
+SELECT SUM(price * quantity) AS total_revenue
+FROM orders o
+JOIN books b ON o.book_id = b.book_id;
 ```
 
 ### 🔹 Top 5 Best-Selling Books
 
 ```sql
-SELECT b.title, SUM(oi.quantity) AS total_sold
-FROM order_items oi
-JOIN books b ON oi.book_id = b.book_id
+SELECT b.title, SUM(o.quantity) AS total_sold
+FROM orders o
+JOIN books b ON o.book_id = b.book_id
 GROUP BY b.title
 ORDER BY total_sold DESC
 LIMIT 5;
@@ -73,8 +74,9 @@ LIMIT 5;
 
 ```sql
 SELECT DATE_FORMAT(order_date, '%Y-%m') AS month,
-       COUNT(order_id) AS total_orders
-FROM orders
+       SUM(price * quantity) AS revenue
+FROM orders o
+JOIN books b ON o.book_id = b.book_id
 GROUP BY month;
 ```
 
@@ -84,7 +86,8 @@ GROUP BY month;
 
 * Identified high-demand books based on sales volume
 * Analyzed monthly revenue trends
-* Detected frequent customers for targeted marketing
+* Evaluated customer purchase patterns
+* Compared marketing spend with customer activity
 
 ---
 
@@ -100,7 +103,9 @@ GROUP BY month;
 ## 📌 Future Enhancements
 
 * Integration with Python for data visualization
-* Development of a web-based dashboard (Flask/Django)
-* Implementation of a recommendation system
+* Development of a web-based dashboard
+* Customer recommendation system
 
 ---
+
+
