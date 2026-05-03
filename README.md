@@ -26,10 +26,10 @@ It focuses on extracting meaningful insights from sales, customer, and inventory
 
 ### Tables:
 
-* **Books** (`book_id`, `title`, `author`, `price`, `stock`)
-* **Customers** (`customer_id`, `name`, `email`)
-* **Orders** (`order_id`, `customer_id`, `order_date`)
-* **Order_Items** (`order_id`, `book_id`, `quantity`)
+* **Books** (`book_id`, `title`, `genre`, `price`, `stock`)
+* **Customers** (`customer_id`, `name`, `city`,'signup_date')
+* **Orders** (`order_id`, `customer_id`,'book_id','quantity', `order_date`)
+* **Marketingspend** (`spend_id`, `customer_id`, `spend_amount`)
 
 ---
 
@@ -104,7 +104,3 @@ GROUP BY month;
 * Implementation of a recommendation system
 
 ---
-
-## 👩‍💻 Author
-
-Your Name
